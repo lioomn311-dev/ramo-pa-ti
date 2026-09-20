@@ -1,0 +1,311 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+   Self-hosted fonts — warm hand-drawn greeting card
+   Nunito        : rounded, soft, friendly hand-lettered feel (display + body)
+   Fraunces      : soft organic serif with hand-cut warmth (ink message)
+   Instrument Serif Italic : flowing script accent (emphasis + signature)
+--------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/assets/fonts/Nunito.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 200 1000;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("/assets/fonts/Fraunces.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/assets/fonts/InstrumentSerif-Italic.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 400;
+  font-style: italic;
+}
+
+@layer base {
+  :root {
+    --font-display: "Nunito";
+    --font-body: "Nunito";
+    --font-mono: "JetBrains Mono";
+    --font-ink: "Fraunces";
+    --font-script: "Instrument Serif";
+
+    --radius: 1.75rem;
+
+    /* --- Core surfaces: cream paper --- */
+    --background: 0.985 0.014 96; /* #FDFCF0 cream paper */
+    --foreground: 0.315 0.028 42; /* #3A2E2A dark brown ink */
+    --card: 0.995 0.008 98; /* warm off-white card stock */
+    --card-foreground: 0.315 0.028 42;
+    --popover: 0.995 0.008 98;
+    --popover-foreground: 0.315 0.028 42;
+
+    /* --- Primary: dusty pink ribbon / title --- */
+    --primary: 0.795 0.085 5; /* #F4A7B9 soft pink */
+    --primary-foreground: 0.315 0.028 42;
+
+    /* --- Secondary: kraft brown paper wrap --- */
+    --secondary: 0.545 0.095 58; /* #8B5A2B brown paper */
+    --secondary-foreground: 0.985 0.014 96;
+
+    /* --- Accent: deeper rose for emphasis --- */
+    --accent: 0.665 0.145 8; /* #D96A87 deeper pink */
+    --accent-foreground: 0.985 0.014 96;
+
+    /* --- Muted: pale paper tint --- */
+    --muted: 0.955 0.018 92;
+    --muted-foreground: 0.545 0.03 45;
+
+    --destructive: 0.58 0.19 27;
+    --destructive-foreground: 0.985 0.014 96;
+
+    --border: 0.9 0.025 85;
+    --input: 0.9 0.025 85;
+    --ring: 0.795 0.085 5;
+
+    /* --- Botanical palette (tulips, leaves, ribbon, ink) --- */
+    --tulip: 0.865 0.155 92; /* #F4D03F warm tulip yellow */
+    --tulip-deep: 0.775 0.16 78; /* shaded petal */
+    --leaf: 0.565 0.135 138; /* #5D8A3C leaf green */
+    --leaf-deep: 0.455 0.11 140; /* stem shadow */
+    --paper-wrap: 0.545 0.095 58; /* kraft brown */
+    --paper-wrap-deep: 0.445 0.085 55; /* fold shadow */
+    --ribbon: 0.795 0.085 5; /* pink ribbon */
+    --ribbon-deep: 0.665 0.145 8; /* ribbon shadow */
+    --ink: 0.315 0.028 42; /* dark brown ink */
+    --ink-soft: 0.475 0.03 45; /* faded ink */
+
+    --chart-1: 0.865 0.155 92;
+    --chart-2: 0.565 0.135 138;
+    --chart-3: 0.795 0.085 5;
+    --chart-4: 0.545 0.095 58;
+    --chart-5: 0.665 0.145 8;
+
+    --sidebar: 0.965 0.02 92;
+    --sidebar-foreground: 0.315 0.028 42;
+    --sidebar-primary: 0.795 0.085 5;
+    --sidebar-primary-foreground: 0.315 0.028 42;
+    --sidebar-accent: 0.955 0.018 92;
+    --sidebar-accent-foreground: 0.315 0.028 42;
+    --sidebar-border: 0.9 0.025 85;
+    --sidebar-ring: 0.795 0.085 5;
+
+    /* --- Depth: soft paper shadows, never harsh --- */
+    --shadow-card: 0 18px 40px -18px oklch(0.42 0.06 55 / 0.32), 0 6px 14px -8px
+      oklch(0.42 0.06 55 / 0.18);
+    --shadow-soft: 0 8px 22px -12px oklch(0.42 0.06 55 / 0.28);
+    --shadow-lift: 0 30px 60px -24px oklch(0.42 0.06 55 / 0.36), 0 10px 20px
+      -12px oklch(0.42 0.06 55 / 0.2);
+
+    --gradient-paper: linear-gradient(
+      160deg,
+      oklch(0.995 0.008 98) 0%,
+      oklch(0.985 0.014 96) 55%,
+      oklch(0.965 0.022 92) 100%
+    );
+    --gradient-ribbon: linear-gradient(
+      135deg,
+      oklch(0.83 0.09 8) 0%,
+      oklch(0.795 0.085 5) 50%,
+      oklch(0.72 0.12 6) 100%
+    );
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* The card is a single warm light scene; dark mode keeps the same
+     paper identity but deepens the ink and warms the shadows. */
+  .dark {
+    --background: 0.245 0.022 48;
+    --foreground: 0.955 0.014 92;
+    --card: 0.285 0.024 50;
+    --card-foreground: 0.955 0.014 92;
+    --popover: 0.3 0.024 50;
+    --popover-foreground: 0.955 0.014 92;
+
+    --primary: 0.825 0.09 6;
+    --primary-foreground: 0.245 0.022 48;
+
+    --secondary: 0.62 0.1 58;
+    --secondary-foreground: 0.245 0.022 48;
+
+    --accent: 0.72 0.14 8;
+    --accent-foreground: 0.245 0.022 48;
+
+    --muted: 0.33 0.024 50;
+    --muted-foreground: 0.72 0.03 60;
+
+    --destructive: 0.65 0.19 27;
+    --destructive-foreground: 0.245 0.022 48;
+
+    --border: 0.37 0.026 52;
+    --input: 0.37 0.026 52;
+    --ring: 0.825 0.09 6;
+
+    --tulip: 0.845 0.15 92;
+    --tulip-deep: 0.755 0.155 78;
+    --leaf: 0.62 0.13 138;
+    --leaf-deep: 0.5 0.11 140;
+    --paper-wrap: 0.6 0.09 58;
+    --paper-wrap-deep: 0.48 0.08 55;
+    --ribbon: 0.825 0.09 6;
+    --ribbon-deep: 0.72 0.14 8;
+    --ink: 0.955 0.014 92;
+    --ink-soft: 0.78 0.02 80;
+
+    --chart-1: 0.845 0.15 92;
+    --chart-2: 0.62 0.13 138;
+    --chart-3: 0.825 0.09 6;
+    --chart-4: 0.6 0.09 58;
+    --chart-5: 0.72 0.14 8;
+
+    --sidebar: 0.285 0.024 50;
+    --sidebar-foreground: 0.955 0.014 92;
+    --sidebar-primary: 0.825 0.09 6;
+    --sidebar-primary-foreground: 0.245 0.022 48;
+    --sidebar-accent: 0.33 0.024 50;
+    --sidebar-accent-foreground: 0.955 0.014 92;
+    --sidebar-border: 0.37 0.026 52;
+    --sidebar-ring: 0.825 0.09 6;
+
+    --shadow-card: 0 18px 40px -18px oklch(0.1 0.02 50 / 0.6), 0 6px 14px -8px
+      oklch(0.1 0.02 50 / 0.4);
+    --shadow-soft: 0 8px 22px -12px oklch(0.1 0.02 50 / 0.55);
+    --shadow-lift: 0 30px 60px -24px oklch(0.1 0.02 50 / 0.65), 0 10px 20px
+      -12px oklch(0.1 0.02 50 / 0.45);
+
+    --gradient-paper: linear-gradient(
+      160deg,
+      oklch(0.31 0.026 50) 0%,
+      oklch(0.285 0.024 50) 55%,
+      oklch(0.26 0.022 48) 100%
+    );
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  /* Typography roles */
+  .font-ink {
+    font-family: var(--font-ink), Georgia, serif;
+  }
+  .font-script {
+    font-family: var(--font-script), Georgia, serif;
+    font-style: italic;
+  }
+
+  /* Paper surfaces */
+  .bg-paper {
+    background-image: var(--gradient-paper);
+  }
+  .bg-ribbon {
+    background-image: var(--gradient-ribbon);
+  }
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+  .shadow-lift {
+    box-shadow: var(--shadow-lift);
+  }
+
+  /* Hand-drawn paper grain: faint confetti specks like the reference */
+  .paper-grain {
+    background-image: radial-gradient(
+        oklch(var(--ribbon) / 0.16) 1px,
+        transparent 1.4px
+      ), radial-gradient(oklch(var(--leaf) / 0.12) 1px, transparent 1.4px),
+      radial-gradient(oklch(var(--tulip) / 0.18) 1.4px, transparent 1.8px);
+    background-size: 46px 46px, 63px 63px, 91px 91px;
+    background-position: 0 0, 21px 34px, 48px 12px;
+  }
+
+  /* Gentle floating motion for hearts and doodles */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  .animate-float-slow {
+    animation: float 9s ease-in-out infinite;
+  }
+  .animate-sway {
+    animation: sway 7s ease-in-out infinite;
+  }
+  .animate-pop-in {
+    animation: pop-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .animate-rise-in {
+    animation: rise-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-12px) rotate(3deg);
+    }
+  }
+  @keyframes sway {
+    0%,
+    100% {
+      transform: rotate(-2.5deg);
+    }
+    50% {
+      transform: rotate(2.5deg);
+    }
+  }
+  @keyframes pop-in {
+    0% {
+      opacity: 0;
+      transform: scale(0.86) translateY(14px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+  @keyframes rise-in {
+    0% {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
